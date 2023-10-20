@@ -1,0 +1,238 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Serviços Web API",
+    "description": "API de livros",
+    "contact": {
+      "email": "isafbn@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "API de teste"
+    }
+  ],
+  "paths": {
+    "/books": {
+      "post": {
+        "summary": "Cadastro de livro",
+        "description": "Rota para cadastro de livros",
+        "tags": ["Books"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#components/schemas/Books"
+              },
+              "examples": {
+                "book1": {
+                  "value": {
+                    "title": "titulo",
+                    "author": "autor",
+                    "publisher": "editora",
+                    "year": 2023,
+                    "nacionality": "Brasil"
+                  }
+                },
+                "book2": {
+                  "value": {
+                    "title": "titulo2",
+                    "author": "autor2",
+                    "publisher": "editora2",
+                    "year": 2023,
+                    "nacionality": "Brasil"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Error - Não foi possível incluir"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#components/schemas/Books"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "description": "Rota que retorna todos livros",
+        "summary": "Busca todos livros",
+        "tags": ["Books"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/Books"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/books/{id}": {
+      "get": {
+        "description": "Rota pra buscar livro por id",
+        "summary": "Busca um livro específico",
+        "tags": ["Books"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do livro",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Books"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Não foi possível buscar"
+          }
+        }
+      },
+      "put": {
+        "description": "Rota pra editar livro por id",
+        "summary": "Edita um livro específico",
+        "tags": ["Books"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do livro",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#components/schemas/Books"
+              },
+              "examples": {
+                "book1": {
+                  "value": {
+                    "title": "titulo",
+                    "author": "autor",
+                    "publisher": "editora",
+                    "year": 2023,
+                    "nacionality": "Brasil"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Books"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Não foi possível editar"
+          }
+        }
+      },
+      "delete": {
+        "description": "Rota pra excluir livro por id",
+        "summary": "Exclui um livro específico",
+        "tags": ["Books"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do livro",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Books"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Não foi possível excluir"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Books": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "author": {
+            "type": "string"
+          },
+          "publisher": {
+            "type": "string"
+          },
+          "year": {
+            "type": "number"
+          },
+          "nacionality": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+  
+}
